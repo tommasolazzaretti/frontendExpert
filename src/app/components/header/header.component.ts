@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {StateService} from "../../services/stateService/state.service";
 import {Subscription} from "rxjs";
 import {State} from "../../models/state";
+import {CookieService} from "../../services/coockieService/cookie.service";
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -12,7 +13,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   currentState: State = {} as State;
   isLoggedIn = false;
   private stateSubscription: Subscription = new Subscription();
-  constructor(private stateService: StateService) { }
+  constructor(
+    private stateService: StateService,
+    private cookieService: CookieService,
+  ) { }
 
   ngOnInit() {
     this.stateService.getState().subscribe((state) => {
@@ -27,6 +31,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   logout() {
     this.stateService.setState({user: { username : null }});
+    this.cookieService.deleteCookie('currentUser');
   }
 
 }
