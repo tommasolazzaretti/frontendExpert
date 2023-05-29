@@ -1,11 +1,19 @@
-<div>
-  <label for="username">Username:</label>
-  <input type="text" id="username" [(ngModel)]="username" />
-</div>
-<div>
-  <label for="password">Password:</label>
-  <input type="password" id="password" [(ngModel)]="password" />
-</div>
-<div>
-  <button (click)="login()">Login</button>
-</div>
+<form [formGroup]="loginForm" (ngSubmit)="login()">
+  <div>
+    <label for="username">Username:</label>
+    <input type="text" id="username" formControlName="username" />
+    <div>
+      Username is required.
+    </div>
+  </div>
+  <div>
+    <label for="password">Password:</label>
+    <input type="password" id="password" formControlName="password" />
+    <div>
+      Password is required.
+    </div>
+  </div>
+  <div>
+    <button type="submit" [disabled]="loginForm.invalid">Login</button>
+  </div>
+</form>

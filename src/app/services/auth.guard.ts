@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
+import {CookieService} from "./coockieService/cookie.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private cookieService: CookieService) {}
 
   canActivate(): boolean {
     // Verifica se l'utente è autenticato
@@ -25,7 +26,7 @@ export class AuthGuard implements CanActivate {
     // Restituisci true se l'utente è autenticato, altrimenti false.
 
     // Esempio di implementazione:
-    const user = sessionStorage.getItem('currentUser');
+    const user = this.cookieService.getCookie('currentUser');
     return !!user; // Restituisce true se l'utente esiste, altrimenti false
   }
 }
