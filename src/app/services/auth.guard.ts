@@ -21,11 +21,6 @@ export class AuthGuard implements CanActivate {
   }
 
   isLoggedIn(): boolean {
-    // Implementa la logica per verificare se l'utente è autenticato o meno.
-    // Puoi utilizzare il tuo servizio di autenticazione o qualsiasi altra logica che preferisci.
-    // Restituisci true se l'utente è autenticato, altrimenti false.
-
-    // Esempio di implementazione:
     const user = this.cookieService.getCookie('currentUser');
     return !!user; // Restituisce true se l'utente esiste, altrimenti false
   }

@@ -1,8 +1,18 @@
-<!--header-->
 <app-header></app-header>
 
 <div id="body-site" [@fadeAnimation]="o.isActivated ? o.activatedRoute : ''">
   <router-outlet #o="outlet"></router-outlet>
 </div>
 
-<!--footer-->
+<div *ngIf="isLoading" class="loader-overlay">
+  <lottie-animation
+    [lottieConfig]="{
+          path: 'https://assets1.lottiefiles.com/packages/lf20_AQEOul.json',
+          autoplay: true,
+          loop: true
+        }"
+    [mode]="'layer'"
+    [height]="'200'"
+    [width]="'200'"
+  ></lottie-animation>
+</div>

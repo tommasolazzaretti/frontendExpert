@@ -30,7 +30,6 @@ export class LoginComponent implements OnInit {
 
     this.currentState = this.stateService.getState();
     this.stateSubscription = this.stateService.getStateSubject().subscribe((state) => {
-      console.log("login stateSubscription : ", state.user)
       this.currentState = state.user;
     });
   }
@@ -43,13 +42,9 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    // Qui puoi implementare la logica per l'accesso
-    // Puoi inviare una richiesta HTTP al tuo server per verificare le credenziali
-    // e gestire la risposta di conseguenza
     const newState = { username: this.loginForm.value.username };
-    this.cookieService.setCookie('currentUser', this.loginForm.value.username)
+    this.cookieService.setCookie('currentUser', newState.username)
     this.stateService.setState({user: { ...this.currentState, ...newState }});
-
     this.router.navigate(['/home'], { replaceUrl: true });
   }
 }

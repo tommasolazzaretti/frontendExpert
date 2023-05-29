@@ -1,10 +1,12 @@
-import { Injectable } from '@angular/core';
-import {BehaviorSubject, Observable} from 'rxjs';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject, map, Observable} from 'rxjs';
 import {State, User} from "../../models/state";
+import {CookieService} from "../coockieService/cookie.service";
 
 const initialState = {
   user: {} as User,
-  cart: []
+  cart: [],
+  isLoading: false
 };
 
 @Injectable({
@@ -14,7 +16,12 @@ export class StateService {
   private appState: State = initialState; // Stato dell'applicazione
   private stateSubject: BehaviorSubject<State> = new BehaviorSubject<State>(this.appState);
 
-  constructor() { }
+  private isLoadingSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public isLoading$: Observable<boolean> = this.isLoadingSubject.asObservable();
+
+  constructor(private cookieService: CookieService) {
+    this.checkUserFromCookie();
+  }
 
   // Metodo per ottenere l'oggetto BehaviorSubject dello stato
   getStateSubject(): BehaviorSubject<State> {
@@ -22,18 +29,19 @@ export class StateService {
   }
 
   // Metodo per ottenere il valore corrente dello stato
-  getValueState(): State {
-    return this.appState;
-  }
-
-  // Metodo per ottenere il valore corrente dello stato
   getState(): Observable<State> {
     return this.stateSubject.asObservable();
   }
 
+  isLoggedIn(): Observable<boolean> {
+    return this.getState().pipe(
+      map((state) => !!state.user.username)
+    );
+  }
+
   // Metodo per impostare lo stato
   setState(newState: Partial<State>): void {
-    this.appState = { ...this.appState, ...newState };
+    this.appState = {...this.appState, ...newState};
     this.stateSubject.next(this.appState); // Emetti il nuovo stato agli iscritti
   }
 
@@ -42,4 +50,20 @@ export class StateService {
     this.appState = initialState;
     this.stateSubject.next(this.appState); // Emetti il nuovo stato agli iscritti
   }
+
+  checkUserFromCookie(): void {
+    const userCookie = this.cookieService.getCookie('currentUser');
+    if (userCookie) {
+      this.setState({ user: { username: userCookie } });
+    }
+  }
+
+  public showLoader(): void {
+    this.isLoadingSubject.next(true);
+  }
+
+  public hideLoader(): void {
+    this.isLoadingSubject.next(false);
+  }
+
 }

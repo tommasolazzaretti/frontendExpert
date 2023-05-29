@@ -1,8 +1,10 @@
-<div>
+<div class="container">
 
-  <button (click)="modal.open()"> LOGIN </button>
+  <div class="d-flex justify-content-center p-5">
+    <button (click)="modal.open()"> LOGIN </button>
+  </div>
 
-  <app-modal [modalTitle]="'Titolo modale'" #modal>
+  <app-modal [modalTitle]="'Effettua Login'" #modal>
     <app-login></app-login>
   </app-modal>
 

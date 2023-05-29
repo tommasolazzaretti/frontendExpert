@@ -1,6 +1,7 @@
 export interface State {
   user: User;
   cart: CartItem[];
+  isLoading: boolean;
 }
 
 export interface User {

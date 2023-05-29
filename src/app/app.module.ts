@@ -6,6 +6,9 @@ import {BrowserModule} from "@angular/platform-browser";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { HeaderComponent } from './components/header/header.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { LottieModule } from 'ngx-lottie';
+import player from 'lottie-web';
+import {LottieAnimationModule} from "./components/lottie-animation/lottie-animation.module";
 
 const routes: Routes = [
   {
@@ -24,6 +27,12 @@ const routes: Routes = [
   },
 ];
 
+// Note we need a separate function as it's required
+// by the AOT compiler.
+export function playerFactory() {
+  return player;
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,6 +43,8 @@ const routes: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     NgbModule,
+    LottieModule.forRoot({player: playerFactory}),
+    LottieAnimationModule
   ],
   exports: [RouterModule],
   providers: [],

@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';import { AuthComponent } from './au
 import {RouterModule, Routes} from "@angular/router";
 import {ModalModule} from "../../components/modal/modal.module";
 import {LoginModule} from "../../components/login/login.module";
+import {LottieAnimationModule} from "../../components/lottie-animation/lottie-animation.module";
 
 const routes: Routes = [
   { path: '', component: AuthComponent },
@@ -16,7 +17,8 @@ const routes: Routes = [
     CommonModule,
     ModalModule,
     RouterModule.forChild(routes),
-    LoginModule
-  ]
+    LoginModule,
+    LottieAnimationModule
+  ],
 })
 export class AuthModule { }
