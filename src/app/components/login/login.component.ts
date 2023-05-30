@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewEncapsulation} from '@angular/core';
 import {Subscription} from "rxjs";
 import {StateService} from "../../services/stateService/state.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
@@ -12,7 +12,7 @@ import {CookieService} from "../../services/coockieService/cookie.service";
   encapsulation: ViewEncapsulation.None
 })
 export class LoginComponent implements OnInit {
-
+  @Output() loginSuccess: EventEmitter<void> = new EventEmitter<void>();
   loginForm: FormGroup = {} as FormGroup;
 
   currentState: any;
@@ -46,5 +46,6 @@ export class LoginComponent implements OnInit {
     this.cookieService.setCookie('currentUser', newState.username)
     this.stateService.setState({user: { ...this.currentState, ...newState }});
     this.router.navigate(['/home'], { replaceUrl: true });
+    this.loginSuccess.emit();
   }
 }

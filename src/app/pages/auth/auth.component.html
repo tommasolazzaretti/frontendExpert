@@ -5,7 +5,7 @@
   </div>
 
   <app-modal [modalTitle]="'Effettua Login'" #modal>
-    <app-login></app-login>
+    <app-login (loginSuccess)="modal.close()"></app-login>
   </app-modal>
 
 </div>

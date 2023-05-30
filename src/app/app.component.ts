@@ -11,13 +11,11 @@ import {StateService} from "./services/stateService/state.service";
 })
 export class AppComponent {
   title = 'frontendExpert';
-
   isLoading: boolean = false;
+
   constructor(private stateService: StateService) {
     this.stateService.isLoading$.subscribe((isLoading) => {
       this.isLoading = isLoading;
     });
-
-    // this.stateService.showLoader()
   }
 }
