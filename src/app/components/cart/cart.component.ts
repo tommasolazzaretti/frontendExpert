@@ -24,7 +24,7 @@ export class CartComponent {
     setTimeout(() => {
       this.itemAdded = false;
       this.stateService.hideLoader();
-    }, 2000);
+    }, 2200);
   }
 
   showCartItems(): void {

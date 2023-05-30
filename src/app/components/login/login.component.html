@@ -1,5 +1,5 @@
 <form [formGroup]="loginForm" (ngSubmit)="login()" class="row">
-  <div class="col-md-6">
+  <div class="col-md-12">
     <div class="form-group">
       <label for="username">Username:</label>
       <input type="text" id="username" formControlName="username" class="form-control"/>
@@ -16,18 +16,21 @@
     </div>
     <div class="form-group mt-3">
       <button type="submit" [disabled]="loginForm.invalid" class="btn btn-primary">Login</button>
+      <div *ngIf="successfulLogin === false" class="error-message">
+        Login failed. Please check your credentials.
+      </div>
     </div>
   </div>
-  <div class="col-md-6">
-    <div class="d-flex justify-content-center">
-      <lottie-animation
-        [lottieConfig]="{
-          path: 'https://assets7.lottiefiles.com/packages/lf20_z6qsvyre.json',
+
+  <div class="d-flex justify-content-center" *ngIf="successfulLogin">
+    <lottie-animation
+      [lottieConfig]="{
+          path: 'https://assets3.lottiefiles.com/packages/lf20_jcpyfbsi.json',
           autoplay: true,
-          loop: true
+          loop: false
         }"
-        [mode]="'draw'"
-      ></lottie-animation>
-    </div>
+      [mode]="'layer'"
+      (onCompleteEvent)="setNewStateAndCookies()"
+    ></lottie-animation>
   </div>
 </form>
