@@ -4,11 +4,11 @@ import {RouterModule, Routes} from "@angular/router";
 import {AuthGuard} from "./services/auth.guard";
 import {BrowserModule} from "@angular/platform-browser";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import { HeaderComponent } from './components/header/header.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { LottieModule } from 'ngx-lottie';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {LottieModule} from 'ngx-lottie';
 import player from 'lottie-web';
 import {LottieAnimationModule} from "./components/lottie-animation/lottie-animation.module";
+import {HeaderModule} from "./components/header/header.module";
 
 const routes: Routes = [
   {
@@ -36,7 +36,6 @@ export function playerFactory() {
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
@@ -44,7 +43,8 @@ export function playerFactory() {
     BrowserAnimationsModule,
     NgbModule,
     LottieModule.forRoot({player: playerFactory}),
-    LottieAnimationModule
+    LottieAnimationModule,
+    HeaderModule
   ],
   exports: [RouterModule],
   providers: [],

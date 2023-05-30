@@ -9,6 +9,7 @@ export interface User {
 }
 
 export interface CartItem {
+  articleId: string;
   name: string;
   quantity: number;
 }

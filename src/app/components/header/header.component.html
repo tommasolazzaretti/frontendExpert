@@ -2,6 +2,10 @@
   <h1 *ngIf="currentState.user.username" class="header-title"> WELCOME {{currentState.user.username}}</h1>
 
   <div *ngIf="currentState.user.username">
+    <app-cart></app-cart>
+  </div>
+
+  <div *ngIf="currentState.user.username">
     <button (click)="logout()">LOGOUT</button>
   </div>
 

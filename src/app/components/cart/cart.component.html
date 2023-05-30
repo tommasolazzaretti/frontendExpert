@@ -1,0 +1,4 @@
+<div class="cart-container" (click)="showCartItems()">
+  <span class="cart-icon">🛒</span>
+  <span class="cart-item-count" [class.item-added]="itemAdded">{{ cartItems.length }}</span>
+</div>

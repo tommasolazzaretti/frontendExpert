@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, map, Observable} from 'rxjs';
-import {State, User} from "../../models/state";
+import {CartItem, State, User} from "../../models/state";
 import {CookieService} from "../coockieService/cookie.service";
 
 const initialState = {
@@ -15,7 +15,6 @@ const initialState = {
 export class StateService {
   private appState: State = initialState; // Stato dell'applicazione
   private stateSubject: BehaviorSubject<State> = new BehaviorSubject<State>(this.appState);
-
   private isLoadingSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public isLoading$: Observable<boolean> = this.isLoadingSubject.asObservable();
 
@@ -64,6 +63,22 @@ export class StateService {
 
   public hideLoader(): void {
     this.isLoadingSubject.next(false);
+  }
+
+  // Funzione per aggiungere un elemento al carrello
+  addToCart(item: CartItem): void {
+    const cart = [...this.appState.cart]; // Copia l'array del carrello esistente
+    const existingItemIndex = cart.findIndex(cartItem => cartItem.articleId === item.articleId); // Verifica se l'articolo è già presente nel carrello
+
+    if (existingItemIndex > -1) {
+      // Se l'articolo è già presente, aumenta la quantità
+      cart[existingItemIndex].quantity += item.quantity;
+    } else {
+      // Se l'articolo non è presente, aggiungilo al carrello
+      cart.push(item);
+    }
+
+    this.setState({ cart: cart });
   }
 
 }

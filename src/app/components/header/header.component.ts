@@ -3,6 +3,8 @@ import {StateService} from "../../services/stateService/state.service";
 import {Subscription} from "rxjs";
 import {State} from "../../models/state";
 import {CookieService} from "../../services/coockieService/cookie.service";
+import {Router} from "@angular/router";
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -16,11 +18,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(
     private stateService: StateService,
     private cookieService: CookieService,
+    private router: Router
   ) { }
 
   ngOnInit() {
     this.stateService.getState().subscribe((state) => {
-      console.log("header stateSubscription : ", state.user)
       this.currentState = state;
     });
   }
@@ -32,6 +34,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   logout() {
     this.stateService.setState({user: { username : null }});
     this.cookieService.deleteCookie('currentUser');
+    this.router.navigate(['/auth'], { replaceUrl: true });
   }
 
 }
